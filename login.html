@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم — بنك سورية الدولي الإسلامي</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+        body {
+            background: linear-gradient(135deg, #0f3460 0%, #16537e 50%, #1a5f7a 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .dashboard-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .card-header {
+            background: linear-gradient(135deg, #0d2137 0%, #153b50 100%);
+            padding: 25px 20px;
+            text-align: center;
+            color: white;
+        }
+        .logo-img { width: 75px; height: auto; margin-bottom: 8px; }
+        .bank-name {
+            font-size: 20px; font-weight: bold; margin: 5px 0 3px;
+            background: linear-gradient(90deg, #ffd700, #c0c0c0, #ffd700, #c0c0c0);
+            background-size: 300% 100%;
+            animation: holoShine 3s linear infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @keyframes holoShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        .bank-en { font-size: 12px; opacity: 0.8; margin-bottom: 10px; }
+        .flag-img { width: 120px; height: auto; border-radius: 4px; }
+        .card-body { padding: 25px 20px; }
+        .welcome-box { text-align: center; margin-bottom: 20px; }
+        .success-badge {
+            background: #d4edda; color: #155724;
+            padding: 8px 18px; border-radius: 20px;
+            display: inline-block; font-weight: 600; margin-bottom: 8px;
+        }
+        .welcome-title { color: #0f3460; font-size: 19px; font-weight: bold; }
+        .info-row {
+            background: #f0f4f8; padding: 12px 15px; border-radius: 10px;
+            margin-bottom: 10px; font-size: 14px;
+        }
+        .info-row strong { color: #0f3460; }
+        .menu-title {
+            font-size: 16px; font-weight: 600; color: #0f3460;
+            margin: 25px 0 15px; text-align: center;
+        }
+        .menu-btn {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, #0f3460, #16537e);
+            color: white; border: none; border-radius: 12px;
+            font-size: 16px; font-weight: 600; cursor: pointer;
+            margin-bottom: 12px; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .menu-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15,52,96,0.3); }
+        .menu-btn.dekont { background: linear-gradient(135deg, #28a745, #20c997); }
+        .menu-btn.logout { background: #dc3545; margin-top: 10px; }
+        .qrcode-area { text-align: center; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; }
+        .qrcode-box {
+            width: 65px; height: 65px; background: #f0f4f8; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 5px; font-size: 10px; color: #0f3460; border: 1px dashed #0f3460;
+        }
+        .verify-text { font-size: 11px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-card">
+        <div class="card-header">
+            <img src="logo.png" alt="شعار بنك سورية الدولي الإسلامي" class="logo-img" onerror="this.style.display='none'">
+            <div class="bank-name">بنك سورية الدولي الإسلامي</div>
+            <div class="bank-en">Syria International Islamic Bank — SIIB</div>
+            <img src="flag.png" alt="علم الجمهورية العربية السورية" class="flag-img" style="margin-top:10px;" onerror="this.style.display='none'">
+        </div>
+        <div class="card-body">
+            <div class="welcome-box">
+                <div class="success-badge">✅ تم تسجيل الدخول بنجاح</div>
+                <h2 class="welcome-title">مرحباً بك، siib.sy</h2>
+            </div>
+
+            <div class="info-row">
+                <strong>📅 تاريخ الدخول:</strong> <span id="currentDate"></span>
+            </div>
+            <div class="info-row">
+                <strong>🕐 وقت الدخول:</strong> <span id="currentTime"></span>
+            </div>
+            <div class="info-row">
+                <strong>🔐 الحالة:</strong> مصرح به — جلسة آمنة ومشفّرة
+            </div>
+
+            <h3 class="menu-title">⚡ خدمات النظام المصرفي</h3>
+
+            <button class="menu-btn dekont" onclick="window.location.href='dekont-generator.html'">
+                📄 مولد إشعارات التحويل DEKONT — تصدير PDF
+            </button>
+            <button class="menu-btn" onclick="alert('🔧 قيد التطوير — قريباً!')">
+                💰 إدارة الحسابات والتحويلات
+            </button>
+            <button class="menu-btn" onclick="alert('🔧 قيد التطوير — قريباً!')">
+                📊 كشوفات وحسابات شهرية
+            </button>
+            <button class="menu-btn" onclick="alert('🔧 قيد التطوير — قريباً!')">
+                📋 سجل العمليات والمراجعة
+            </button>
+
+            <button class="menu-btn logout" onclick="window.location.href='index.html'">
+                🚪 تسجيل الخروج
+            </button>
+
+            <div class="qrcode-area">
+                <div class="qrcode-box">QR<br>SIIB</div>
+                <p class="verify-text">🔐 رمز التحقق: SIIB-2026-SECURE — verify.siib.sy</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const now = new Date();
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('ar-SA');
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString('ar-SA');
+    </script>
+</body>
+</html>
